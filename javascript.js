@@ -14,11 +14,11 @@ buttonContainer.addEventListener('click', function(e){
             inputValue = e.target.id * 1;
             displayText.textContent = inputValue;
      }
-        else if (parseFloat(inputValue) > 0){
+        else if (inputValue !== undefined){
             inputValue = `${inputValue}${e.target.id}`;
             displayText.textContent = inputValue;
      }
-        else if (parseFloat(inputValue) === 0) {
+        else if (inputValue === 0) {
             inputValue = `${e.target.id}`;
             displayText.textContent = inputValue;
         }
@@ -29,7 +29,7 @@ buttonContainer.addEventListener('click', function(e){
     if (e.target.classList.contains('operatorButton')) {
         if (equalsPressed === false){
         if ((inputValue !== undefined) && (storedInput === undefined)) {
-            storedInput = inputValue *1;
+            storedInput = inputValue;
             inputValue = undefined;
             chosenOperator = `${e.target.id}`;
             displayText.textContent = 0;
@@ -39,27 +39,32 @@ buttonContainer.addEventListener('click', function(e){
             inputValue = operate(parseFloat(storedInput), chosenOperator, parseFloat(inputValue));
             chosenOperator = `${e.target.id}`;
             displayText.textContent = inputValue;
-            storedInput = inputValue *1;
+            storedInput = inputValue;
             inputValue = undefined;
             previousNumberText.textContent = `${storedInput}     ${chosenOperator}`;
         }}
-        if (equalsPressed === true) {
+        else {      
+            console.log(inputValue);     
             chosenOperator = `${e.target.id}`;
+            storedInput = `${inputValue}`;
+            console.log(storedInput);
             displayText.textContent = inputValue;
             previousNumberText.textContent = `${storedInput}     ${chosenOperator}`;
             equalsPressed = false;
-        }
-    }
+            inputValue = undefined;
+            console.log(inputValue);
+        }}
+    
     //end operator button handlers
 
     //clear and back button handlers
     if (e.target.classList.contains('clearButton')) {
         if (e.target.id === "clear") {
             inputValue = undefined;
-            storedInput = undefined;
+            storedInput = 0;
             chosenOperator = undefined;
             displayText.textContent = 0;
-            previousNumberText.textContent = 0;
+            previousNumberText.textContent = storedInput;
         }
         else if (e.target.id === "back") {
             if (inputValue === undefined) {
@@ -88,7 +93,6 @@ buttonContainer.addEventListener('click', function(e){
             inputValue = operate(parseFloat(storedInput), chosenOperator, parseFloat(inputValue));
             displayText.textContent = inputValue;
             storedInput = inputValue;
-            inputValue = undefined;
             equalsPressed = true;
             previousNumberText.textContent = storedInput;
         }
@@ -100,18 +104,23 @@ buttonContainer.addEventListener('click', function(e){
 
     if (e.target.classList.contains('decimalButton')) {
         if (inputValue === undefined) {
+            if (storedInput.toString().includes('.')) {
+                //do nothing
+            }
+            else{
             inputValue = `${storedInput}${e.target.id}`
             displayText.textContent = inputValue;
-            equalsPressed = true;
+
+            }
         }
-        else if (inputValue.includes('.')) {
-            //do nothing
+        else if (inputValue.toString().includes('.')) {
+            //do nothing 
+            
         }
-        
         else {
             inputValue = `${inputValue}${e.target.id}`
             displayText.textContent = inputValue;
-            equalsPressed = true;
+
         }
     }
     //chuck out a decimal handler
