@@ -33,9 +33,10 @@ body {
     border: 2px solid red;
     background-color: greenyellow;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 9px;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
 }
 
 button {
@@ -45,8 +46,8 @@ button {
 }
 
 .clearButton, .backspaceButton {
-    width: 129px;
-    height: 50px;
+    width: 95px;
+    height: 61px;
     border: 1px solid black;
 }
 .button {
@@ -55,27 +56,19 @@ button {
     border: 1px solid black;
 }
 
-.clearContainer {
-    display: flex;
-    gap: 10px;
+
+
+.previousNumberText {
+    margin: 0px;
+    margin-top: 6px;
+    margin-left: 6px;
 }
 
-.numberOperatorContainer {
-    display: flex;
-    justify-content: space-evenly;
+.displayText {
+    margin: 0px;
+    margin-right: 6px;
 }
 
-.numberContainer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 4px;
-}
-
-.operatorContainer {
-    display: flex;
-    flex-wrap: wrap;
-    margin-right: 10px;
-    justify-content: space-evenly;
-    gap: 4px;
+.equalsButton {
+    width: 131px;
 }
