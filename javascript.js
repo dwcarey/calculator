@@ -44,15 +44,12 @@ buttonContainer.addEventListener('click', function(e){
             previousNumberText.textContent = `${storedInput}     ${chosenOperator}`;
         }}
         else {      
-            console.log(inputValue);     
             chosenOperator = `${e.target.id}`;
             storedInput = `${inputValue}`;
-            console.log(storedInput);
             displayText.textContent = inputValue;
             previousNumberText.textContent = `${storedInput}     ${chosenOperator}`;
             equalsPressed = false;
             inputValue = undefined;
-            console.log(inputValue);
         }}
     
     //end operator button handlers
@@ -68,7 +65,12 @@ buttonContainer.addEventListener('click', function(e){
         }
         else if (e.target.id === "back") {
             if (inputValue === undefined) {
-
+            }
+            else if ((equalsPressed === true) && (inputValue.toString().includes('.'))){
+                inputValue = inputValue.toString();
+                inputValue = inputValue.substring(0,(inputValue.length -1));
+                inputValue = inputValue *1;
+                displayText.textContent = inputValue;
             }
             else if (inputValue.length > 1) {
             inputValue = inputValue.substring(0,(inputValue.length -1));
@@ -88,6 +90,14 @@ buttonContainer.addEventListener('click', function(e){
     if (e.target.classList.contains('equalsButton')) {
         if ((inputValue !== undefined) && (storedInput === undefined)) {
                 //nothing
+        }
+        else if ((chosenOperator === "/") && (inputValue === 0)){
+            inputValue = "what are you trying to do!?";
+            displayText.textContent = inputValue;
+            storedInput = inputValue;
+            equalsPressed = true;
+            previousNumberText.textContent = storedInput;
+            inputValue = undefined;
         }
         else if ((inputValue !== undefined) && (storedInput !== undefined)) {
             inputValue = operate(parseFloat(storedInput), chosenOperator, parseFloat(inputValue));
