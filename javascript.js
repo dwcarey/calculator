@@ -1,6 +1,8 @@
 const previousNumberText = document.querySelector('.previousNumberText');
 const displayText = document.querySelector('.displayText');
 const buttonContainer = document.querySelector('.buttonContainer');
+const buttons = document.querySelectorAll('.button');
+console.log(buttons);
 
 let inputValue; //the current number the user is working on, this = undefined is used for inputvalue
 let storedInput; //the storedinput number for use with new inputvalue
@@ -58,15 +60,21 @@ buttonContainer.addEventListener('click', function(e){
     if (e.target.classList.contains('clearButton')) {
         if (e.target.id === "clear") {
             inputValue = undefined;
-            storedInput = 0;
+            storedInput = undefined;
             chosenOperator = undefined;
             displayText.textContent = 0;
-            previousNumberText.textContent = storedInput;
+            previousNumberText.textContent = 0;
         }
         else if (e.target.id === "back") {
             if (inputValue === undefined) {
             }
             else if ((equalsPressed === true) && (inputValue.toString().includes('.'))){
+                inputValue = inputValue.toString();
+                inputValue = inputValue.substring(0,(inputValue.length -1));
+                inputValue = inputValue *1;
+                displayText.textContent = inputValue;
+            }
+            else if ((equalsPressed === true) && (!inputValue.toString().includes('.'))){
                 inputValue = inputValue.toString();
                 inputValue = inputValue.substring(0,(inputValue.length -1));
                 inputValue = inputValue *1;
@@ -93,7 +101,7 @@ buttonContainer.addEventListener('click', function(e){
         }
         else if ((chosenOperator === "/") && (inputValue === 0)){
             inputValue = "what are you trying to do!?";
-            displayText.textContent = inputValue;
+            displayText.textContent = "";
             storedInput = inputValue;
             equalsPressed = true;
             previousNumberText.textContent = storedInput;
@@ -138,11 +146,29 @@ buttonContainer.addEventListener('click', function(e){
 });
 
 
+//yet another event listener on the button container, for styling purposes (hover)
 
 
+buttons.forEach((button) => {
+    button.addEventListener('mouseenter', function(e) {
+      e.target.style.backgroundColor = '#882fd4';
+    });
+  
+    button.addEventListener('mouseleave', function(e) {
+      e.target.style.backgroundColor = ''; 
+    });
+  });
 
 
-
+  buttons.forEach((button) => {
+    button.addEventListener('click', function(e) {
+      e.target.style.backgroundColor = '#35dc2e';
+    });
+  
+    button.addEventListener('mouseup', function(e) {
+      e.target.style.backgroundColor = ''; 
+    });
+  });
 
 
 
